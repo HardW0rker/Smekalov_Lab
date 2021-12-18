@@ -125,8 +125,8 @@ cls_data = [[],[]]
 
 #Выводим несколько неправильно распознанных цифр
 print('Выводим ',quantity_fail,' неправильно распознанных цифр')
-for i in range(len(val_ds)):
-    img, label = val_ds[i]
+for i in range(len(test_ds)):
+    img, label = test_ds[i]
     prediction = predict_image(img, model)
     cls_data[0].append(label)
     cls_data[1].append(prediction)

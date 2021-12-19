@@ -3,7 +3,7 @@ import numpy as np
 import networkx as nx
 
 script_dir = os.path.dirname(__file__)
-file_path = os.path.join(script_dir, 'VK.gml')
+file_path = os.path.join(script_dir, 'vk.gml')
 vk = nx.read_gml(file_path)
 
 i = 0
@@ -34,7 +34,7 @@ for pair in sorted_friends:
 print('Медианное число друзей:  ', np.median(fv))
 print('Среднее число друзей: ', round(np.mean(fv)))
 
-smallp = nx.shortest_path_length(vk)
+smallp = nx.all_pairs_shortest_path_length(vk)
 print(smallp)
 for pair in smallp:
     for ln in pair[1].values():
@@ -43,7 +43,7 @@ for pair in smallp:
         else:
             len_i[0]+=1
 
-overall_ln=sum(len_i)
+overall_ln = len(vk.nodes)**2
 
 for i in range(1,7):
     print(f'Доля пар с L={i} {len_i[i]/overall_ln}')

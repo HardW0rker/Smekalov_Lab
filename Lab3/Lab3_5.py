@@ -30,22 +30,17 @@ image_transforms = transforms.Compose([
     transforms.Normalize(channel_means, channel_stds)
 ])
 
-image_datasets = dict(zip(('dev', 'test'),
-                          [datasets.ImageFolder(data_path_format.format(key), transform=image_transforms) for key in
-                           ['train', 'test']]))
+image_datasets = dict(zip(('dev', 'test'),[datasets.ImageFolder(data_path_format.format(key), transform=image_transforms) for key in['train', 'test']]))
 
 devset_indices = np.arange(len(image_datasets['dev']))
 devset_labels = image_datasets['dev'].targets
 
-train_indices, val_indices, train_labels, val_labels = model_selection.train_test_split(devset_indices, devset_labels,
-                                                                                        test_size=0.1,
-                                                                                        stratify=devset_labels)
+train_indices, val_indices, train_labels, val_labels = model_selection.train_test_split(devset_indices, devset_labels,test_size=0.1,stratify=devset_labels)
 
 image_datasets['train'] = tdata.Subset(image_datasets['dev'], train_indices)
 image_datasets['validation'] = tdata.Subset(image_datasets['dev'], val_indices)
 
-image_dataloaders = {key: tdata.DataLoader(image_datasets[key], batch_size=16, shuffle=True) for key in
-                     ['train', 'validation']}
+image_dataloaders = {key: tdata.DataLoader(image_datasets[key], batch_size=16, shuffle=True) for key in ['train', 'validation']}
 image_dataloaders['test'] = tdata.DataLoader(image_datasets['test'], batch_size=32)
 
 
